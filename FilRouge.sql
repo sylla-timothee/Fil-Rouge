@@ -1,77 +1,62 @@
+-- 1. Création de la table des agences (nécessaire avant les propriétés)
+CREATE TABLE `agencies` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `city` VARCHAR(50) NOT NULL,
+  `address` VARCHAR(100) NOT NULL,
+  `phone` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-Enum "users_role_enum" {
-  "admin"
-  "agent"
-  "client"
-}
+-- 2. Création de la table des utilisateurs
+CREATE TABLE `users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(100) NOT NULL UNIQUE,
+  `role` ENUM('admin', 'agent', 'client') NOT NULL DEFAULT 'client',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-Enum "properties_type_enum" {
-  "residential"
-  "professional"
-}
+-- 3. Création de la table des propriétés
+CREATE TABLE `properties` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `agency_id` INT NOT NULL,
+  `agent_id` INT NOT NULL,
+  `title` VARCHAR(100) NOT NULL,
+  `city` VARCHAR(50) NOT NULL,
+  `surface` INT NOT NULL,
+  `address` VARCHAR(100) NOT NULL,
+  `prix` INT NOT NULL,
+  `type` ENUM('residential', 'professional') NOT NULL,
+  `status` ENUM('available', 'sold', 'pending') NOT NULL DEFAULT 'available',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_properties_agency` FOREIGN KEY (`agency_id`) REFERENCES `agencies` (`id`),
+  CONSTRAINT `fk_properties_agent` FOREIGN KEY (`agent_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-Enum "properties_status_enum" {
-  "available"
-  "sold"
-  "pending"
-}
+-- 4. Création de la table des images
+CREATE TABLE `properties_images` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `property_id` INT NOT NULL,
+  `url` VARCHAR(255) NOT NULL,
+  `sort_order` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_images_property` FOREIGN KEY (`property_id`) REFERENCES `properties` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-Table "users" {
-  "id" INT [pk, not null, increment]
-  "first_name" VARCHAR(50) [not null]
-  "last_name" VARCHAR(50) [not null]
-  "password" VARCHAR(255) [not null]
-  "email" VARCHAR(100) [unique, not null]
-  "role" users_role_enum [not null, default: 'client']
-  "created_at" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
-}
-
-Table "agencies" {
-  "id" INT [pk, not null, increment]
-  "city" VARCHAR(50) [not null]
-  "address" VARCHAR(100) [not null]
-  "phone" VARCHAR(20) [not null]
-}
-
-Table "properties" {
-  "id" INT [pk, not null, increment]
-  "agency_id" INT [not null]
-  "agent_id" INT [not null]
-  "title" VARCHAR(100) [not null]
-  "city" VARCHAR(50) [not null]
-  "surface" INT [not null]
-  "address" VARCHAR(100) [not null]
-  "prix" INT [not null]
-  "type" properties_type_enum [not null]
-  "status" properties_status_enum [not null, default: 'available']
-}
-
-Table "properties_images" {
-  "id" INT [pk, not null, increment]
-  "property_id" INT [not null]
-  "url" VARCHAR(255) [not null]
-  "sort_order" INT [not null, default: 1]
-}
-
-Table "transactions" {
-  "id" INT [pk, not null, increment]
-  "property_id" INT [not null]
-  "seller_id" INT [not null]
-  "buyer_id" INT [not null]
-  "agency_id" INT [not null]
-  "date" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
-}
-
-Ref "fk_properties_agency":"agencies"."id" < "properties"."agency_id"
-
-Ref "fk_properties_agent":"users"."id" < "properties"."agent_id"
-
-Ref "fk_images_property":"properties"."id" < "properties_images"."property_id" [delete: cascade]
-
-Ref "fk_trans_property":"properties"."id" < "transactions"."property_id"
-
-Ref "fk_trans_seller":"users"."id" < "transactions"."seller_id"
-
-Ref "fk_trans_buyer":"users"."id" < "transactions"."buyer_id"
-
-Ref "fk_trans_agency":"agencies"."id" < "transactions"."agency_id"
+-- 5. Création de la table des transactions
+CREATE TABLE `transactions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `property_id` INT NOT NULL,
+  `seller_id` INT NOT NULL,
+  `buyer_id` INT NOT NULL,
+  `agency_id` INT NOT NULL,
+  `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_trans_property` FOREIGN KEY (`property_id`) REFERENCES `properties` (`id`),
+  CONSTRAINT `fk_trans_seller` FOREIGN KEY (`seller_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_trans_buyer` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_trans_agency` FOREIGN KEY (`agency_id`) REFERENCES `agencies` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
