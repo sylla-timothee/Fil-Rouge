@@ -1,6 +1,6 @@
-const SERV_BASE = '/fil rouge/backend';
+const SERV_BASE = '/Fil-Rouge/backend';
 
-const SERV = {
+export const SERV = {
     async request(url, options = {}) {
         const defaults = { credentials: 'include' };
         if (!(options.body instanceof FormData)) {
@@ -23,22 +23,40 @@ const SERV = {
 
     auth: {
         login(data) {
-            return SERV.request('/auth/login', {
+            return SERV.request('/auth/login.php', {
                 method: 'POST',
                 body: JSON.stringify(data)
             });
         },
         register(formData) {
-            return SERV.request('/auth/register', {
+            return SERV.request('/auth/register.php', {
                 method: 'POST',
-                body: formData
+                body: JSON.stringify(formData)
             });
         },
         logout() {
-            return SERV.request('/auth/logout', { method: 'POST' });
+            return SERV.request('/auth/logout.php', { method: 'POST' });
         },
         session() {
-            return SERV.request('/auth/session');
+            return SERV.request('/auth/session.php');
         }
     },
+    account: {
+        get_profile() {
+            return SERV.request('/account/get_profile.php', {
+                method: 'GET',
+            })
+        }
+    },
+    properties: {
+    getAll() {
+        return SERV.request('/properties/get_properties.php', { method: 'GET' });
+    },
+    create(data) {
+        return SERV.request('/properties/post_properties.php', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    }
+}
 }
