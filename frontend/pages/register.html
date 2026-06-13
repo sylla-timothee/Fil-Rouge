@@ -1,21 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inscription - Fil Rouge - Ymmobilier</title>
+    <meta name="description" content="Page d'inscription du site Fil Rouge - Ymmobilier, accessible et responsive.">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-    <h1>Register</h1>
-    <form>
-        <label for="name">Nom</label>
-        <input type="text" id="name" placeholder="Entrez votre nom">
-        <label for="mail"></label>
-        <input type="email" id="mail" placeholder="Entrez votre addresse mail">
-        <label for="password"></label>
-        <input type="password" id="password" placeholder="Entrez votre mot de passe">
-        <button type="submit">Valider</button>
-        <p>Vous possédez déja un compte:<a href="register.html">S'inscrire</a></p>
-    </form>
+    <a class="skip-link" href="#main-content">Aller au contenu</a>
+    <section class="page-shell">
+        <div class="container">
+            <header class="site-header" aria-label="En-tête du site">
+                <div class="site-brand">Fil Rouge - Ymmobilier</div>
+                <nav class="site-nav" aria-label="Navigation principale">
+                    <a href="index.html">Accueil</a>
+                    <a href="login.html">Connexion</a>
+                    <a href="register.html" aria-current="page">Inscription</a>
+                    <a href="dashboard.html">Tableau de bord</a>
+                </nav>
+            </header>
+
+            <main id="main-content">
+                <article class="form-card" aria-labelledby="inscription-title">
+                    <h1 id="inscription-title">Inscription</h1>
+                    <p class="form-intro">Créez votre compte pour accéder à votre espace et gérer vos propriétés.</p>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Nom</label>
+                            <input type="text" id="name" placeholder="Entrez votre nom" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="mail">Adresse e-mail</label>
+                            <input type="email" id="mail" placeholder="Entrez votre adresse mail" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" id="password" placeholder="Entrez votre mot de passe" aria-required="true">
+                        </div>
+                        <button type="submit">Valider</button>
+                        <div class="form-footer">
+                            <p>Vous avez déjà un compte ? <a href="login.html">Se connecter</a></p>
+                        </div>
+                    </form>
+                </article>
+            </main>
+
+            <footer class="site-footer">Inscription facile et accessible sur mobile et desktop.</footer>
+        </div>
+    </section>
 </body>
 </html>
