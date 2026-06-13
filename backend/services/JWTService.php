@@ -3,7 +3,6 @@
 class JWTService {
     private $secret_key;
 
-    // Le constructeur récupère la clé automatiquement
     public function __construct() {
         $variables_env = parse_ini_file(__DIR__ . '/../.env');
         $this->secret_key = $variables_env['SECRET_KEY'];
@@ -48,11 +47,11 @@ class JWTService {
         $signature_calculee = hash_hmac('sha256', $b64Header . "." . $b64Payload, $this->secret_key, true);
         $b64SignatureCalculee = $this->base64url_encode($signature_calculee);
 
-        if ($b64Signature !== $b64SignatureCalculee) return false; // Tricheur !
+        if ($b64Signature !== $b64SignatureCalculee) return false; 
 
-        // On check l'expiration
+       
         $payload = json_decode(base64_decode(strtr($b64Payload, '-_', '+/')), true);
-        if ($payload['exp'] < time()) return false; // Expiré !
+        if ($payload['exp'] < time()) return false; 
 
         return $payload; // Tout est bon, on renvoie les infos
     }
