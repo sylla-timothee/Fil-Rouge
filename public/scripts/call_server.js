@@ -1,4 +1,6 @@
-const SERV_BASE = '/Fil-Rouge/backend';
+const SERV_BASE = window.location.pathname.includes('Fil-Rouge')
+    ? '/Fil-Rouge/backend'
+    : '/backend';
 
 export const SERV = {
     async request(url, options = {}) {
