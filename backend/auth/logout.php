@@ -1,8 +1,7 @@
 <?php
-
+header('Content-Type: application/json');
 session_start();
 session_unset();
 session_destroy();
-header("Location: login.html");
-
+echo json_encode(["success" => true]);
 ?>

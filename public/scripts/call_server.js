@@ -38,7 +38,7 @@ export const SERV = {
             return SERV.request('/auth/logout.php', { method: 'POST' });
         },
         session() {
-            return SERV.request('/auth/session.php');
+            return SERV.request('/auth/session.php?t=' + Date.now());
         }
     },
     account: {
@@ -49,14 +49,24 @@ export const SERV = {
         }
     },
     properties: {
-    getAll() {
-        return SERV.request('/properties/get_properties.php', { method: 'GET' });
-    },
-    create(data) {
-        return SERV.request('/properties/post_properties.php', {
-            method: 'POST',
-            body: JSON.stringify(data)
-        });
-    }
+        getAll() {
+            return SERV.request('/properties/get_properties.php', { method: 'GET' });
+        },
+        create(data) {
+            return SERV.request('/properties/post_properties.php', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+        },
+        getById(id) {
+            return SERV.request('/properties/get_property_details.php?id=' + id, {
+                method: 'GET',
+            })
+        },
+        delete(id) {
+            return SERV.request('/properties/delete_property.php?id=' + id, {
+                method: 'DELETE',
+            })
+        }
 }
 }

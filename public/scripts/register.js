@@ -1,6 +1,11 @@
 import { SERV } from './call_server.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        await SERV.auth.session();
+        window.location.href = 'properties.html';
+        return;
+    } catch {
 
     document.getElementById("registerForm").addEventListener("submit", async e => {
         e.preventDefault();
@@ -24,4 +29,5 @@ document.addEventListener('DOMContentLoaded', () => {
             msg.textContent = error.message;
         }
     });
+}
 });

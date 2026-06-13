@@ -2,6 +2,7 @@ import { SERV } from './call_server.js';
 
 let allProperties = [];
 let filteredProperties = [];
+let currentUser = null;
 
 const filters = {
     date: "",
@@ -50,21 +51,21 @@ function applyFilters() {
     if (filters.price === "asc") {
         result.sort((a, b) => a.prix - b.prix);
     }
-    if (filters.price === "desc") {
+    else if (filters.price === "desc") {
         result.sort((a, b) => b.prix - a.prix);
     }
 
-    if (filters.surface === "asc") {
+    else if (filters.surface === "asc") {
         result.sort((a, b) => a.surface - b.surface);
     }
-    if (filters.surface === "desc") {
+    else if (filters.surface === "desc") {
         result.sort((a, b) => b.surface - a.surface);
     }
 
-    if (filters.date === "newest") {
+    else if (filters.date === "newest") {
         result.sort((a, b) => b.id - a.id);
     }
-    if (filters.date === "oldest") {
+    else if (filters.date === "oldest") {
         result.sort((a, b) => a.id - b.id);
     }
 
@@ -72,10 +73,28 @@ function applyFilters() {
     renderProperties(result);
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+    try {
+        const session = await SERV.auth.session();
+        currentUser = session.user;
+    } catch {
+        currentUser = null;
+    }
     loadProperties();
     document.getElementById('addPropertyForm').addEventListener('submit', handleSubmit);
 });
+
+window.deleteProperty = async function(id) {
+    if (!confirm("Supprimer cette propriété ?")) return;
+
+    try {
+        const result = await SERV.properties.delete(id);
+        alert(result.message);
+        loadProperties();
+    } catch (error) {
+        alert(error.message);
+    }
+}
 
 async function loadProperties() {
     try {
@@ -97,6 +116,8 @@ function renderProperties(properties) {
     const table = document.getElementById('propertiesTable');
     const message = document.getElementById('message');
 
+    const isAdmin   = currentUser?.role === 'admin';
+
     if (properties.length === 0) {
         message.textContent = "Aucune propriété trouvée";
         table.style.display = "none";
@@ -108,8 +129,18 @@ function renderProperties(properties) {
     container.innerHTML = '';
 
     properties.forEach(property => {
+        // placeholder si aucune image
+        const imgTag = property.image_url
+            ? `<img src="${property.image_url}" alt="${property.title}" style="width:80px; height:60px; object-fit:cover; border-radius:4px;">`
+            : `<span style="color:#aaa;">Aucune photo</span>`;
+        
+        const deleteBtn = isAdmin 
+            ? `<td><button onclick="deleteProperty(${property.id})">Supprimer</button></td>`
+            : ``
+
         container.innerHTML += `
-        <tr>
+        <tr style="cursor:pointer;" onclick="window.location.href='property-detail.html?id=${property.id}'">
+            <td>${imgTag}</td>
             <td>${property.title}</td>
             <td>${property.city}</td>
             <td>${property.surface}</td>
@@ -117,6 +148,7 @@ function renderProperties(properties) {
             <td>${property.prix}</td>
             <td>${property.type}</td>
             <td>${property.status}</td>
+            ${deleteBtn}
         </tr>`;
     });
 }
