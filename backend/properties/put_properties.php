@@ -4,7 +4,7 @@ require_once "../services/JWTService.php";
 
 $jwt = new JWTService();
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+if ($_SERVER["REQUEST_METHOD"] !== "PUT") {
     http_response_code(405); // Method Not Allowed
     exit;
 }
@@ -30,12 +30,19 @@ if (!$payload || !in_array($payload['role'], ['admin', 'agent'])) {
 
 $data = json_decode(file_get_contents("php://input"), true);
 
+if (!isset($data['id'])) {
+    http_response_code(400);
+    echo json_encode(["error" => "L'ID de la propriété est manquant."]);
+    exit;
+}
+
 $stmt = $connection->prepare(
-    "INSERT INTO properties (agency_id, agent_id, title, city, surface, address, prix, type, status)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    "UPDATE properties 
+     SET agency_id = ?, agent_id = ?, title = ?, city = ?, surface = ?, address = ?, prix = ?, type = ?, status = ? 
+     WHERE id = ?"
 );
 
-$stmt->bind_param("iissisiss",
+$stmt->bind_param("iissisissi",
     $data["agency_id"],
     $data["agent_id"],
     $data["title"],
@@ -44,13 +51,16 @@ $stmt->bind_param("iissisiss",
     $data["address"],
     $data["prix"],
     $data["type"],
-    $data["status"]
+    $data["status"],
+    $data["id"]
 );
 
+header('Content-Type: application/json');
+
 if ($stmt->execute()) {
-    header('Content-Type: application/json');
-    echo json_encode(["success" => true, "id" => $stmt->insert_id]);
+    echo json_encode(["success" => true, "message" => "Propriété mise à jour avec succès."]);
 } else {
     http_response_code(500);
-    echo json_encode(["success" => false, "error" => "Erreur lors de l'insertion"]);
+    echo json_encode(["success" => false, "error" => "Erreur lors de la modification."]);
 }
+?>
