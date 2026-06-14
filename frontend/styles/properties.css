@@ -53,6 +53,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 0.95rem;
+            min-width: 700px;
         }
 
         #propertiesTable thead {

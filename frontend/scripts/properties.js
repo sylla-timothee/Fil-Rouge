@@ -3,7 +3,7 @@ import { SERV } from './call_server.js';
 let allProperties = [];
 let filteredProperties = [];
 let currentUser = null;
-let isAdmin = false; // ← défini au niveau du fichier, accessible partout
+let isAdmin = false;
 
 const filters = {
     date: "",
@@ -67,16 +67,13 @@ function applyFilters() {
     renderProperties(result);
 }
 
+document.addEventListener("DOMContentLoaded", async function () {
     try {
         const session = await SERV.auth.session();
         currentUser = session.user;
-
+        
         isAdmin = currentUser?.role === 'admin';
         const isAgent = currentUser?.role === 'agent';
-
-        console.log('currentUser :', currentUser);
-        console.log('role :', currentUser?.role);
-        console.log('isAdmin :', isAdmin);
 
         if (isAdmin || isAgent) {
             document.getElementById('addPropertyPanel').style.display = 'block';
@@ -93,7 +90,7 @@ function applyFilters() {
 
     loadProperties();
     document.getElementById('addPropertyForm').addEventListener('submit', handleSubmit);
-
+});
 
 window.deleteProperty = async function(id) {
     if (!confirm("Supprimer cette propriété ?")) return;

@@ -4,7 +4,7 @@ class JWTService {
     private $secret_key;
 
     public function __construct() {
-        $variables_env = parse_ini_file(__DIR__ . '/../.env');
+        $variables_env = parse_ini_file(__DIR__ . '/../../.env');
         $this->secret_key = $variables_env['SECRET_KEY'];
     }
 
