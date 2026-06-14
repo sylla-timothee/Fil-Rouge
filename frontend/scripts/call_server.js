@@ -43,10 +43,10 @@ export const SERV = {
                 body: JSON.stringify(data)
             });
         },
-        register(formData) {
-            return SERV.request('/auth/register.php', {
-                method: 'POST',
-                body: JSON.stringify(formData)
+        register(data) {
+        return SERV.request('/auth/register.php', {
+            method: 'POST',
+            body: JSON.stringify(data) 
             });
         },
         logout() {
