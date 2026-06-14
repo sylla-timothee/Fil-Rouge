@@ -4,16 +4,29 @@ const SERV_BASE = window.location.pathname.includes('Fil-Rouge')
 
 export const SERV = {
     async request(url, options = {}) {
-        const defaults = { credentials: 'include' };
+        const defaults = { 
+            credentials: 'include',
+            headers: {} 
+        };
+
         if (!(options.body instanceof FormData)) {
-            defaults.headers = { 'Content-Type': 'application/json' };
+            defaults.headers['Content-Type'] = 'application/json';
         }
+
+        
+        const token = localStorage.getItem('token'); 
+        if (token) {
+            defaults.headers['Authorization'] = `Bearer ${token}`;
+        }
+
         const config = { ...defaults, ...options };
         if (options.headers && defaults.headers) {
             config.headers = { ...defaults.headers, ...options.headers };
         }
+
         const response = await fetch(SERV_BASE + url, config);
         const data = await response.json();
+        
         if (!response.ok) {
             const error = new Error(data.error || 'Erreur serveur');
             error.status = response.status;
@@ -70,5 +83,5 @@ export const SERV = {
                 method: 'DELETE',
             })
         }
-}
-}
+    }
+};

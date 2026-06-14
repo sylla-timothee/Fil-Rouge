@@ -9,7 +9,8 @@ INSERT INTO users (first_name, last_name, password, email, role) VALUES
 ('Jean', 'Dupont', '$2y$10$examplehash1', 'jean.dupont@example.com', 'agent'),
 ('Marie', 'Martin', '$2y$10$examplehash2', 'marie.martin@example.com', 'agent'),
 ('Lucas', 'Bernard', '$2y$10$examplehash3', 'lucas.bernard@example.com', 'client'),
-('Emma', 'Petit', '$2y$10$examplehash4', 'emma.petit@example.com', 'client');
+('Emma', 'Petit', '$2y$10$examplehash4', 'emma.petit@example.com', 'client'),
+('Bob', 'Dylan', '$2y$10$examplehash5', 'bob.dylan@exemple.com', 'admin');
 
 -- PROPERTIES
 INSERT INTO properties

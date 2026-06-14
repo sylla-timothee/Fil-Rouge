@@ -8,16 +8,16 @@ CREATE TABLE `agencies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 2. Création de la table des utilisateurs
-CREATE TABLE `users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(50) NOT NULL,
-  `last_name` VARCHAR(50) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(100) NOT NULL UNIQUE,
-  `role` ENUM('admin', 'agent', 'client') NOT NULL DEFAULT 'client',
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  CREATE TABLE `users` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `first_name` VARCHAR(50) NOT NULL,
+    `last_name` VARCHAR(50) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `email` VARCHAR(100) NOT NULL UNIQUE,
+    `role` ENUM('admin', 'agent', 'client') NOT NULL DEFAULT 'client',
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 3. Création de la table des propriétés
 CREATE TABLE `properties` (
