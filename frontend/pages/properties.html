@@ -15,12 +15,7 @@
 
             <header class="site-header" aria-label="En-tête du site">
                 <div class="site-brand">Fil Rouge - Ymmobilier</div>
-                <nav class="site-nav" aria-label="Navigation principale">
-                    <a href="../../index.html">Accueil</a>
-                    <a href="login.html">Connexion</a>
-                    <a href="register.html">Inscription</a>
-                    <a href="properties.html" aria-current="page">Propriétés</a>
-                    <a href="dashboard.html">Tableau de bord</a>
+                <nav class="site-nav" aria-label="Navigation principale" id="nav-links">
                 </nav>
             </header>
 
@@ -77,6 +72,7 @@
                                 <th>Prix (€)</th>
                                 <th>Type</th>
                                 <th>Statut</th>
+                                <th id="deleteHeader"></th>
                             </tr>
                         </thead>
                         <tbody id="propertiesContainer"></tbody>
@@ -84,7 +80,7 @@
                 </div>
 
                 <!-- Formulaire ajout -->
-                <div class="add-panel dashboard-panel">
+                <div class="add-panel dashboard-panel" style="display:none;">
                     <h2>Ajouter une propriété</h2>
                     <form id="addPropertyForm" novalidate>
                         <div class="add-form-grid">

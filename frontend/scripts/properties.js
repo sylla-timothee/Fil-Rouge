@@ -3,6 +3,7 @@ import { SERV } from './call_server.js';
 let allProperties = [];
 let filteredProperties = [];
 let currentUser = null;
+let isAdmin = false; // ← défini au niveau du fichier, accessible partout
 
 const filters = {
     date: "",
@@ -50,22 +51,15 @@ function applyFilters() {
 
     if (filters.price === "asc") {
         result.sort((a, b) => a.prix - b.prix);
-    }
-    else if (filters.price === "desc") {
+    } else if (filters.price === "desc") {
         result.sort((a, b) => b.prix - a.prix);
-    }
-
-    else if (filters.surface === "asc") {
+    } else if (filters.surface === "asc") {
         result.sort((a, b) => a.surface - b.surface);
-    }
-    else if (filters.surface === "desc") {
+    } else if (filters.surface === "desc") {
         result.sort((a, b) => b.surface - a.surface);
-    }
-
-    else if (filters.date === "newest") {
+    } else if (filters.date === "newest") {
         result.sort((a, b) => b.id - a.id);
-    }
-    else if (filters.date === "oldest") {
+    } else if (filters.date === "oldest") {
         result.sort((a, b) => a.id - b.id);
     }
 
@@ -73,16 +67,33 @@ function applyFilters() {
     renderProperties(result);
 }
 
-document.addEventListener("DOMContentLoaded", async function () {
     try {
         const session = await SERV.auth.session();
         currentUser = session.user;
+
+        isAdmin = currentUser?.role === 'admin';
+        const isAgent = currentUser?.role === 'agent';
+
+        console.log('currentUser :', currentUser);
+        console.log('role :', currentUser?.role);
+        console.log('isAdmin :', isAdmin);
+
+        if (isAdmin || isAgent) {
+            document.getElementById('addPropertyPanel').style.display = 'block';
+        }
+
+        if (isAdmin) {
+            document.getElementById('deleteHeader').textContent = 'Action';
+        }
+
     } catch {
         currentUser = null;
+        isAdmin = false;
     }
+
     loadProperties();
     document.getElementById('addPropertyForm').addEventListener('submit', handleSubmit);
-});
+
 
 window.deleteProperty = async function(id) {
     if (!confirm("Supprimer cette propriété ?")) return;
@@ -116,8 +127,6 @@ function renderProperties(properties) {
     const table = document.getElementById('propertiesTable');
     const message = document.getElementById('message');
 
-    const isAdmin   = currentUser?.role === 'admin';
-
     if (properties.length === 0) {
         message.textContent = "Aucune propriété trouvée";
         table.style.display = "none";
@@ -129,14 +138,13 @@ function renderProperties(properties) {
     container.innerHTML = '';
 
     properties.forEach(property => {
-        // placeholder si aucune image
         const imgTag = property.image_url
             ? `<img src="${property.image_url}" alt="${property.title}" style="width:80px; height:60px; object-fit:cover; border-radius:4px;">`
             : `<span style="color:#aaa;">Aucune photo</span>`;
-        
-        const deleteBtn = isAdmin 
-            ? `<td><button onclick="deleteProperty(${property.id})">Supprimer</button></td>`
-            : ``
+
+        const deleteBtn = isAdmin
+            ? `<td><button onclick="event.stopPropagation(); deleteProperty(${property.id})">Supprimer</button></td>`
+            : `<td></td>`;
 
         container.innerHTML += `
         <tr style="cursor:pointer;" onclick="window.location.href='property-detail.html?id=${property.id}'">
@@ -155,7 +163,6 @@ function renderProperties(properties) {
 
 function setupCityFilter(properties) {
     const select = document.getElementById('cityFilter');
-
     const cities = [...new Set(properties.map(p => p.city))];
 
     cities.forEach(city => {
@@ -185,13 +192,13 @@ async function handleSubmit(e) {
     };
 
     try {
-        const result = await SERV.properties.create(data)
+        const result = await SERV.properties.create(data);
         message.textContent = result.message;
-        message.style.color = 'green'
-        form.reset()
+        message.style.color = 'green';
+        form.reset();
         loadProperties();
     } catch (error) {
         message.textContent = error.message;
-        message.style.color = 'red'
+        message.style.color = 'red';
     }
 }
