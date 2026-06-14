@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Fil Rouge - Ymmobilier</title>
+    <meta name="description" content="Page de connexion du site Fil Rouge - Ymmobilier, accessible et responsive.">
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Aller au contenu</a>
+    <section class="page-shell">
+        <div class="container">
+            <header class="site-header" aria-label="En-tête du site">
+                <div class="site-brand">Fil Rouge - Ymmobilier</div>
+                <nav class="site-nav" aria-label="Navigation principale">
+                    <a href="../../index.html">Accueil</a>
+                    <a href="login.html" aria-current="page">Connexion</a>
+                    <a href="register.html">Inscription</a>
+                    <a href="properties.html">Propriétés</a>
+                </nav>
+            </header>
+
+            <main id="main-content">
+                <article class="form-card" aria-labelledby="connexion-title">
+                    <h1 id="connexion-title">Connexion</h1>
+                    <p class="form-intro">Connectez-vous avec vos identifiants pour accéder à votre espace.</p>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="mail">Adresse e-mail</label>
+                            <input type="email" id="email" placeholder="Entrez votre adresse mail" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" id="password" placeholder="Entrez votre mot de passe" aria-required="true">
+                        </div>
+                        <button type="submit">Valider</button>
+                        <p id="formMessage"></p>
+                        <div class="form-footer">
+                            <p>Vous n'avez pas de compte ? <a href="register.html">S'inscrire</a></p>
+                        </div>
+                    </form>
+                </article>
+            </main>
+
+            <footer class="site-footer">Connexion sécurisée et accessible sur tous les écrans.</footer>
+        </div>
+    </section>
+    <script type="module" src="../scripts/login.js"></script>
+</body>
+</html>

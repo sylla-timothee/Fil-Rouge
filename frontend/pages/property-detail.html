@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détail du bien - Fil Rouge - Ymmobilier</title>
+    <meta name="description" content="Détail d'un bien immobilier - Fil Rouge Ymmobilier.">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/property-details.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Aller au contenu</a>
+    <section class="page-shell">
+        <div class="container">
+
+            <header class="site-header" aria-label="En-tête du site">
+                <div class="site-brand">Fil Rouge - Ymmobilier</div>
+                <nav class="site-nav" aria-label="Navigation principale">
+                    <a href="../../index.html">Accueil</a>
+                    <a href="login.html">Connexion</a>
+                    <a href="register.html">Inscription</a>
+                    <a href="properties.html">Propriétés</a>
+                    <a href="dashboard.html">Tableau de bord</a>
+                </nav>
+            </header>
+
+            <main id="main-content">
+
+                <a class="back-link" href="properties.html">← Retour à la liste</a>
+
+                <p id="message">Chargement du bien…</p>
+
+                <div id="propertyDetail" style="display:none;">
+
+                    <div class="detail-grid">
+
+                        <!-- Image du bien -->
+                        <div class="detail-image-wrap">
+                            <img id="detailImage" src="" alt="" style="display:none;">
+                        </div>
+
+                        <!-- Infos du bien -->
+                        <div class="detail-panel">
+
+                            <h1 id="detailTitle"></h1>
+
+                            <!-- Caractéristiques -->
+                            <div class="dashboard-card">
+                                <table class="info-table">
+                                    <tbody>
+                                        <tr><th>Référence</th> <td id="detailId"></td></tr>
+                                        <tr><th>Ville</th>     <td id="detailCity"></td></tr>
+                                        <tr><th>Adresse</th>   <td id="detailAddress"></td></tr>
+                                        <tr><th>Surface</th>   <td id="detailSurface"></td></tr>
+                                        <tr><th>Prix</th>      <td id="detailPrice"></td></tr>
+                                        <tr><th>Type</th>      <td id="detailType"></td></tr>
+                                        <tr><th>Statut</th>    <td id="detailStatus"></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Agence -->
+                            <div class="dashboard-card sub-section">
+                                <h2>Agence</h2>
+                                <table class="info-table">
+                                    <tbody>
+                                        <tr><th>Ville</th>     <td id="agencyCity"></td></tr>
+                                        <tr><th>Adresse</th>   <td id="agencyAddress"></td></tr>
+                                        <tr><th>Téléphone</th> <td id="agencyPhone"></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Agent -->
+                            <div class="dashboard-card sub-section">
+                                <h2>Agent responsable</h2>
+                                <p id="agentName" class="agent-name"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            <footer class="site-footer">Fiche détaillée du bien — interface responsive et accessible.</footer>
+        </div>
+    </section>
+
+    <script type="module" src="../scripts/property-detail.js"></script>
+    <script type="module" src="../scripts/common.js"></script>
+</body>
+</html>

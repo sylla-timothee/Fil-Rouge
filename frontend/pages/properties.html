@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propriétés - Fil Rouge - Ymmobilier</title>
+    <meta name="description" content="Liste et gestion des biens immobiliers - Fil Rouge Ymmobilier.">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/properties.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Aller au contenu</a>
+    <section class="page-shell">
+        <div class="container">
+
+            <header class="site-header" aria-label="En-tête du site">
+                <div class="site-brand">Fil Rouge - Ymmobilier</div>
+                <nav class="site-nav" aria-label="Navigation principale">
+                    <a href="../../index.html">Accueil</a>
+                    <a href="login.html">Connexion</a>
+                    <a href="register.html">Inscription</a>
+                    <a href="properties.html" aria-current="page">Propriétés</a>
+                    <a href="dashboard.html">Tableau de bord</a>
+                </nav>
+            </header>
+
+            <main id="main-content">
+
+                <!-- Titre + état -->
+                <div class="section-header">
+                    <h1>Biens immobiliers</h1>
+                </div>
+
+                <p id="message">Chargement des biens…</p>
+
+                <!-- Filtres -->
+                <div class="filters-bar" id="filters" role="search" aria-label="Filtres et tri">
+                    <select id="sortDate" aria-label="Trier par date">
+                        <option value="">Tri date</option>
+                        <option value="newest">Plus récent</option>
+                        <option value="oldest">Plus ancien</option>
+                    </select>
+
+                    <select id="sortPrice" aria-label="Trier par prix">
+                        <option value="">Tri prix</option>
+                        <option value="asc">Prix croissant</option>
+                        <option value="desc">Prix décroissant</option>
+                    </select>
+
+                    <select id="sortSurface" aria-label="Trier par surface">
+                        <option value="">Tri surface</option>
+                        <option value="asc">Surface croissante</option>
+                        <option value="desc">Surface décroissante</option>
+                    </select>
+
+                    <select id="cityFilter" aria-label="Filtrer par ville">
+                        <option value="">Toutes les villes</option>
+                    </select>
+
+                    <select id="typeFilter" aria-label="Filtrer par type">
+                        <option value="">Tous types</option>
+                        <option value="residential">Résidentiel</option>
+                        <option value="professional">Professionnel</option>
+                    </select>
+                </div>
+
+                <!-- Tableau -->
+                <div class="table-wrapper">
+                    <table id="propertiesTable" style="display: none;" aria-label="Liste des biens immobiliers">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Titre</th>
+                                <th>Ville</th>
+                                <th>Surface (m²)</th>
+                                <th>Adresse</th>
+                                <th>Prix (€)</th>
+                                <th>Type</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody id="propertiesContainer"></tbody>
+                    </table>
+                </div>
+
+                <!-- Formulaire ajout -->
+                <div class="add-panel dashboard-panel">
+                    <h2>Ajouter une propriété</h2>
+                    <form id="addPropertyForm" novalidate>
+                        <div class="add-form-grid">
+                            <div class="form-group">
+                                <label for="title">Titre</label>
+                                <input type="text" id="title" name="title" placeholder="Ex : Appartement T3" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="city">Ville</label>
+                                <input type="text" id="city" name="city" placeholder="Ex : Paris" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="surface">Surface (m²)</label>
+                                <input type="number" id="surface" name="surface" placeholder="Ex : 65" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Adresse</label>
+                                <input type="text" id="address" name="address" placeholder="Ex : 12 rue de la Paix" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="prix">Prix (€)</label>
+                                <input type="number" id="prix" name="prix" placeholder="Ex : 250000" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="agency_id">ID Agence</label>
+                                <input type="number" id="agency_id" name="agency_id" placeholder="Ex : 1" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="agent_id">ID Agent</label>
+                                <input type="number" id="agent_id" name="agent_id" placeholder="Ex : 3" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Type</label>
+                                <select id="type" name="type" required>
+                                    <option value="">-- Type --</option>
+                                    <option value="residential">Résidentiel</option>
+                                    <option value="professional">Professionnel</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Statut</label>
+                                <select id="status" name="status">
+                                    <option value="available">Disponible</option>
+                                    <option value="sold">Vendu</option>
+                                    <option value="pending">En attente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="add-form-actions">
+                            <button type="submit">Ajouter le bien</button>
+                            <p id="formMessage"></p>
+                        </div>
+                    </form>
+                </div>
+
+            </main>
+
+            <footer class="site-footer">Gestion de vos biens immobiliers — interface responsive et accessible.</footer>
+        </div>
+    </section>
+
+    <script type="module" src="../scripts/properties.js"></script>
+    <script type="module" src="../scripts/common.js"></script>
+</body>
+</html>

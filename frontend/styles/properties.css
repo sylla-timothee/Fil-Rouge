@@ -1,0 +1,178 @@
+/* ── Filtres ── */
+        .filters-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .filters-bar select {
+            width: auto;
+            padding: 0.6rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            font: inherit;
+            font-size: 0.9rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .filters-bar select:focus {
+            outline: 3px solid rgba(61, 96, 247, 0.25);
+            border-color: rgba(61, 96, 247, 0.3);
+        }
+
+        /* ── Section titre ── */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h1 {
+            margin: 0;
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+        }
+
+        /* ── Table ── */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            background: var(--surface);
+        }
+
+        #propertiesTable {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        #propertiesTable thead {
+            background: var(--surface-alt);
+        }
+
+        #propertiesTable th {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        #propertiesTable td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: middle;
+        }
+
+        #propertiesTable tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        #propertiesTable tbody tr:hover {
+            background: var(--surface-alt);
+        }
+
+        #propertiesTable td img {
+            width: 64px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+        }
+
+        /* ── Badge statut ── */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-available  { background: #dcfce7; color: #15803d; }
+        .badge-sold       { background: #fee2e2; color: #b91c1c; }
+        .badge-pending    { background: #fef9c3; color: #92400e; }
+
+        /* ── Message état ── */
+        #message {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin: 0 0 1rem;
+        }
+
+        /* ── Formulaire ajout ── */
+        .add-panel {
+            margin-top: 2.5rem;
+        }
+
+        .add-panel h2 {
+            font-size: 1.5rem;
+            margin: 0 0 1.5rem;
+        }
+
+        .add-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .add-form-grid input,
+        .add-form-grid select {
+            width: 100%;
+        }
+
+        .add-form-actions {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .add-form-actions button[type="submit"] {
+            width: auto;
+            padding: 0.9rem 2rem;
+            border-radius: 999px;
+        }
+
+        #formMessage {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 720px) {
+            .filters-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filters-bar select {
+                width: 100%;
+                border-radius: 16px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .add-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }

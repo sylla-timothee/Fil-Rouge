@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Fil Rouge - Ymmobilier</title>
+    <meta name="description" content="Tableau de bord Fil Rouge - Ymmobilier pour visualiser les propriétés et l'état du compte.">
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <a class="skip-link" href="#dashboard-content">Aller au contenu</a>
+    <section class="page-shell">
+        <div class="container">
+            <header class="site-header" aria-label="En-tête du site">
+                <div class="site-brand">Fil Rouge - Ymmobilier</div>
+                <nav class="site-nav" aria-label="Navigation principale">
+                    <a href="../../index.html">Accueil</a>
+                    <a href="login.html">Connexion</a>
+                    <a href="register.html">Inscription</a>
+                    <a href="properties.html">Propriétés</a>
+                </nav>
+            </header>
+
+            <main id="dashboard-content">
+                <section class="dashboard-panel" aria-labelledby="dashboard-title">
+                    <div class="profile-card">
+                        <h1>Bienvenue, <span id="user-name">Chargement...</span> !</h1>
+                        <p>Votre email : <span id="user-email">Chargement...</span></p>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="site-footer">Dashboard responsive conçu pour optimiser votre gestion immobilière.</footer>
+        </div>
+    </section>
+    <script type="module" src="../scripts/account.js"></script>
+</body>
+</html>
