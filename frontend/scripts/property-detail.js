@@ -22,6 +22,14 @@ async function loadProperty(id) {
 }
 
 function render(p) {
+    const rdvBtn = document.getElementById('rdvBtn');
+    const userId = localStorage.getItem('IdUser');
+
+    if (userId) {
+    rdvBtn.style.display = 'block';
+    } else {
+        rdvBtn.style.display = 'none';
+    }
     document.getElementById('message').style.display = 'none';
     document.getElementById('propertyDetail').style.display = 'block';
 
