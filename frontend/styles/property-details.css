@@ -115,6 +115,23 @@
             margin: 0 0 1rem;
         }
 
+        #rdvBtn {
+            background: none;
+            border: 1px solid var(--border);
+            margin: 10px;
+            padding: 1rem;
+            border-radius: 999px;
+            font: inherit;
+            color: var(--text);
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        #rdvBtn:hover {
+            background: rgba(61, 96, 247, 0.08);
+            border-color: rgba(61, 96, 247, 0.16);
+        }
+
         /* Mobile : une colonne */
         @media (max-width: 860px) {
             .detail-grid {

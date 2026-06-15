@@ -41,6 +41,7 @@ document.getElementById('typeFilter').addEventListener('change', (e) => {
 function applyFilters() {
     let result = [...allProperties];
 
+    // 1. Filtres (garder/exclure des éléments)
     if (filters.city) {
         result = result.filter(p => p.city === filters.city);
     }
@@ -49,15 +50,20 @@ function applyFilters() {
         result = result.filter(p => p.type === filters.type);
     }
 
+    // 2. Tris (chacun indépendant)
     if (filters.price === "asc") {
         result.sort((a, b) => a.prix - b.prix);
     } else if (filters.price === "desc") {
         result.sort((a, b) => b.prix - a.prix);
-    } else if (filters.surface === "asc") {
+    }
+
+    if (filters.surface === "asc") {
         result.sort((a, b) => a.surface - b.surface);
     } else if (filters.surface === "desc") {
         result.sort((a, b) => b.surface - a.surface);
-    } else if (filters.date === "newest") {
+    }
+
+    if (filters.date === "newest") {
         result.sort((a, b) => b.id - a.id);
     } else if (filters.date === "oldest") {
         result.sort((a, b) => a.id - b.id);
